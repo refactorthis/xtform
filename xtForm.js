@@ -30,17 +30,11 @@
       prop;
 
     this.errorMessages = new ErrorMessages();
-    this.errorsShown = false;
     this.formCtrl = formCtrl;
     this.scope = scope;
     this.element = element;
     this.ngModel = ngModel;
     this.attrs = attrs;
-
-    if (this.formCtrl !== undefined) {
-      this.formCtrl.errorControls = [];
-      this.formCtrl.$showErrorMessage = false;
-    }
 
     var observe = function(prop) {
       var innerProp = prop;
