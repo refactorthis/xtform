@@ -59,6 +59,8 @@
     }, function(valid) {
       if (ngModel.$dirty) {
         self.showErrors();
+      } else {
+        self.resetValidity();
       }
     }, true);
   }
