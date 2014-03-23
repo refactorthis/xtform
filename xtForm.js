@@ -88,17 +88,18 @@
         min: this.attrs.min,
         max: this.attrs.max,
       };
-
+      
       for (var prop in ngModel.$error) {
-        if (prop != 'required' && ngModel.$error[prop] === true && this.errorMessages[prop]) {
-          propCount++;
-          var errString = this.errorMessages[prop] + "";
-          for (var bound in bounds) {
-            errString = errString.replace('{{' + bound + '}}', bounds[bound]);
-          }
-          errors += errString + '<br>';
-        }
-      }
+	    var key = prop.toLowerCase();
+	    if (prop != 'required' && ngModel.$error[prop] === true && this.errorMessages[key]) {
+		    propCount++;
+		    var errString = this.errorMessages[key] + "";
+		    for (var bound in bounds) {
+			    errString = errString.replace('{{' + bound + '}}', bounds[bound]);
+		    }
+		    errors += errString + '<br>';
+	    }
+	  }
 
       if (propCount === 0 && ngModel.$error.required === true) {
         errors += this.errorMessages.required + '<br>';
