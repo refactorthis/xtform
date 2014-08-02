@@ -111,6 +111,14 @@
         errors += ngModel.$error.messages;
       }
 
+      this.element.addClass('xt-error');
+
+      // if element is select2, set the tooltip to the select2 container instead to the input 
+      if (this.element[0].nodeName == 'SELECT' && (
+          this.element.attr("ui-select2") !== undefined || this.element.data("ui-select2") !== undefined)) {
+          this.element = this.element.prev('.select2-container');
+      }
+
       if (this.tooltipSet === true) {
         this.element.tooltip("destroy");
       }
@@ -129,7 +137,7 @@
       }
 
       this.tooltipSet = true;
-      this.element.addClass('xt-error');
+      
     } else {
       this.resetValidity();
     }
