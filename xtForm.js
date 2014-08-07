@@ -110,6 +110,16 @@
       if (ngModel.$error.messages !== undefined) {
         errors += ngModel.$error.messages;
       }
+      
+      // if the element is a radio button, set the tooltip on the element that is declared on the (data-val-cont) on the radio button
+      if (this.element[0].nodeName == 'INPUT' && this.element[0].type == 'radio') {
+
+         if (this.element[0].attributes['data-val-cont'] == undefined)
+             throw new Error("You must define (data-val-cont) on the radio button element, so xtForm sets the xt-error css class and the tooltip on.");
+
+         var contId = this.element[0].attributes['data-val-cont'].value;
+         this.element = $("#" + contId);
+      }
 
       this.element.addClass('xt-error');
 
