@@ -44,7 +44,13 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="xtform.js"></script>
 <script>
-    angular.module('sample', ['xtForm']);
+    angular
+            .module('sample', ['xtForm'])
+            .config(function (xtFormErrorsProvider) {
+                xtFormErrorsProvider.setErrors({
+                    required: 'cela est requis'
+                });
+            });
 </script>
 </body>
 </html>

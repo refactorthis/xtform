@@ -7,32 +7,14 @@
  */
 (function (angular) {
 
-    "use strict";
+    'use strict';
 
-    function DefaultErrorMessages() {
-        this.minlength = 'Needs to be at least {{minlength}} characters long';
-        this.maxlength = 'Can be no longer than {{maxlength}} characters long';
-        this.required = 'This field is required';
-        this.number = 'Must be a number';
-        this.min = 'Must be at least {{min}}';
-        this.max = 'Must be no greater than {{max}}';
-        this.email = 'Invalid Email';
-        this.pattern = 'Illegal value';
-    }
-
-    function ErrorMessages() {
-    }
-
-    ErrorMessages.prototype = new DefaultErrorMessages();
-    ErrorMessages.prototype.constructor = ErrorMessages;
-
-    function InputValidator(scope, element, attrs, ngModel, formCtrl) {
+    function InputValidator(scope, element, attrs, ngModel, errors) {
 
         var self = this,
             prop;
 
-        this.errorMessages = new ErrorMessages();
-        this.formCtrl = formCtrl;
+        this.errorMessages = errors;
         this.scope = scope;
         this.element = element;
         this.ngModel = ngModel;
@@ -82,7 +64,7 @@
         if (!ngModel.$valid) {
 
             // build error summary
-            var errors = "",
+            var errors = '',
                 propCount = 0;
 
             // calculated here as it could be variable
@@ -97,7 +79,7 @@
                 var key = prop.toLowerCase();
                 if (prop != 'required' && ngModel.$error[prop] === true && this.errorMessages[key]) {
                     propCount++;
-                    var errString = this.errorMessages[key] + "";
+                    var errString = this.errorMessages[key] + '';
                     for (var bound in bounds) {
                         errString = errString.replace('{{' + bound + '}}', bounds[bound]);
                     }
@@ -117,12 +99,12 @@
 
             // if element is select2, set the tooltip to the select2 container instead to the input
             if (this.element[0].nodeName.toUpperCase() == 'SELECT' && (
-                this.element.attr("ui-select2") !== undefined || this.element.data("ui-select2") !== undefined)) {
+                this.element.attr('ui-select2') !== undefined || this.element.data('ui-select2') !== undefined)) {
                 this.element = this.element.prev('.select2-container');
             }
 
             if (this.tooltipSet === true) {
-                this.element.tooltip("destroy");
+                this.element.tooltip('destroy');
             }
 
             // create tooltip
@@ -160,18 +142,41 @@
     };
 
     if (!angular.isFunction(angular.element.prototype.tooltip)) {
-         throw new Error('xtform requires a jquery tooltip plugin, like bootstrap.js');
+        throw new Error('xtform requires a jquery tooltip plugin, like bootstrap.js');
     }
 
     angular.module('xtForm', [])
-        .directive('xtForm', ['$parse', function ($parse) {
+
+        .provider('xtFormErrors', function () {
+
+            var _errors = {
+                minlength: 'Needs to be at least {{minlength}} characters long',
+                maxlength: 'Can be no longer than {{maxlength}} characters long',
+                required: 'This field is required',
+                number: 'Must be a number',
+                min: 'Must be at least {{min}}',
+                max: 'Must be no greater than {{max}}',
+                email: 'Invalid Email',
+                pattern: 'Illegal value'
+            };
+
+            this.setErrors = function (errors) {
+                angular.extend(_errors, errors);
+            };
+
+            this.$get = function () {
+                return _errors;
+            };
+        })
+
+        .directive('xtForm', ['$parse', 'xtFormErrors', function ($parse, xtFormErrors) {
 
             return {
                 require: ['form', 'xtForm'],
                 controller: [
-                    "$scope",
-                    "$element",
-                    "$attrs",
+                    '$scope',
+                    '$element',
+                    '$attrs',
 
                     function ($scope, $element, $attrs) {
 
@@ -284,14 +289,14 @@
             };
         }])
 
-        .directive('xtValidate', function () {
+        .directive('xtValidate', ['xtFormErrors', function (xtFormErrors) {
             return {
-                require: ['ngModel', '^form', '^xtForm'],
+                require: ['ngModel', '^xtForm', '^form'],
                 priority: 99,
                 link: function (scope, element, attrs, ctrls) {
                     var ngModel = ctrls[0],
-                        formCtrl = ctrls[1],
-                        xtFormCtrl = ctrls[2];
+                        xtFormCtrl = ctrls[1],
+                        errors = angular.copy(xtFormErrors);
 
                     if (ngModel.$name === undefined) {
                         throw new Error('element must have a "name" attribute to use xtValidate');
@@ -301,7 +306,7 @@
                         attrs.placement = 'top';
                     }
 
-                    var validator = new InputValidator(scope, element, attrs, ngModel, formCtrl);
+                    var validator = new InputValidator(scope, element, attrs, ngModel, errors);
                     xtFormCtrl.validators.registerValidator(attrs.name, validator);
                     element.on('$destroy', function () {
                         if (xtFormCtrl && xtFormCtrl.validators && xtFormCtrl.validators.hasValidator(attrs.name)) {
@@ -310,6 +315,6 @@
                     });
                 }
             };
-        });
+        }]);
 
 })(window.angular);
