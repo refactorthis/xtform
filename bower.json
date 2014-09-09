@@ -1,6 +1,6 @@
 {
   "name": "xtform",
-  "version": "0.1.0beta",
+  "version": "1.0.0",
   "homepage": "https://github.com/refactorthis/xtform",
   "authors": [
     "refactorthis <www.brentmckendrick.com>"
@@ -20,5 +20,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "angular": ">=1.2",
+    "bootstrap": ">=2.0",
+    "jquery": ">=1.0"
+  }
 }
