@@ -1,0 +1,145 @@
+<div class="docs-section">
+
+    <h1 id="errors" class="page-header">Custom Error Messages</h1>
+
+    <p>
+        XtForm provides multiple ways to set the error message displayed for a given error condition. In many
+        cases the error message will not need to be specified for each element as XtForm will generate common messages
+        for you.
+    </p>
+
+    <h2 id="errors-element">Errors per element</h2>
+
+    <p>
+        To declare a custom error message all you need to do is declare the message on an attribute of the ng-model
+        element.
+        See this example below which overrides the default error messages with ones particular to this element.
+    </p>
+
+    <div class="xt-example" data-ng-controller="sampleFormController">
+        <form name="errorsNgModelForm" xt-form ng-submit="save(errorsNgModelForm)" role="form" novalidate>
+            <div class="form-group">
+                <label for="errorsNgModelNumber">Number</label>
+                <input name="number" type="number" ng-model="model.number" class="form-control" id="errorsNgModelNumber"
+                       required min="0" max="6" placeholder="Required & must be between 0 and 6"
+                       msg-max="Woah... too high!!"
+                       msg-min="Needs to be bigger than that!"
+                       msg-required="You need to fill this one out"
+                       msg-number="What the? I can't read this!">
+                <xt-validation-inline for="errorsNgModelNumber"></xt-validation-inline>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+
+&lt;input name=&quot;number&quot; type=&quot;number&quot; ng-model=&quot;model.number&quot; class=&quot;form-control&quot; id=&quot;num&quot;
+       required min=&quot;0&quot; max=&quot;6&quot; placeholder=&quot;Required &amp; must be between 0 and 6&quot;
+       msg-max=&quot;Woah... too high!!&quot;
+       msg-min=&quot;Needs to be bigger than that!&quot;
+       msg-required=&quot;You need to fill this one out&quot;
+       msg-number=&quot;What the? I can&#39;t read this!&quot;&gt;
+        </pre>
+    </div>
+
+    <h2 id="errors-defaults">App wide defaults</h2>
+
+    <p>
+        Most error messages will not need to be explicitly set on the input itself. XtForm provides a set of default
+        error messages for standard error keys. These can be overridden in the configuration provider shown below.
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Messages</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>minlength</td>
+            <td ng-non-bindable>'Needs to be at least {{ngMinlength}} characters long'</td>
+        </tr>
+        <tr>
+            <td>maxlength</td>
+            <td ng-non-bindable>'Can be no longer than {{ngMaxlength}} characters long'</td>
+        </tr>
+        <tr>
+            <td>required</td>
+            <td>'This field is required'</td>
+        </tr>
+        <tr>
+            <td>number</td>
+            <td>'Must be a number'</td>
+        </tr>
+        <tr>
+            <td>min</td>
+            <td ng-non-bindable>'Must be at least {{ngMin}}'</td>
+        </tr>
+        <tr>
+            <td>max</td>
+            <td ng-non-bindable>'Must be no greater than {{ngMax}}'</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>'Must be a valid E-mail address'</td>
+        </tr>
+        <tr>
+            <td>pattern</td>
+            <td>'Illegal value'</td>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>'Must be a valid URL'</td>
+        </tr>
+        <tr>
+            <td>date</td>
+            <td>'Must be a valid date'</td>
+        </tr>
+        <tr>
+            <td>datetimelocal</td>
+            <td>'Must be a valid date'</td>
+        </tr>
+        <tr>
+            <td>time</td>
+            <td>'Must be a valid time'</td>
+        </tr>
+        <tr>
+            <td>week</td>
+            <td>'Must be a valid week'</td>
+        </tr>
+        <tr>
+            <td>month</td>
+            <td>'Must be a valid month'</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>
+        The error messages are interpolated using the attributes of the element. This means you have access to variables
+        such as max/min, etc inside of the default error messages.
+    </p>
+
+    <p>
+        The following code snippet shows how to override the built in error messages to change XtForm defaults,
+        or add your own.
+    </p>
+
+    <div class="highlight">
+        <pre class="prettyprint">
+
+angular.module('sample').config(function (xtFormConfigProvider) {
+
+    // Override default error messages
+    xtFormConfigProvider.setErrorMessages({
+        required 'Yo!, this will override the required message',
+        someOtherKey: 'Here is a message for a custom validation directive'
+    });
+});
+        </pre>
+    </div>
+</div>

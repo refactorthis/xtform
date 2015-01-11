@@ -1,0 +1,50 @@
+<div class="docs-section">
+
+    <h1 id="styling" class="page-header">Styling</h1>
+
+    <p>
+        All partials are templated so that they can be overridden. For example the following form has it's validation
+        summary
+        template replaced.
+    </p>
+
+    <script type="text/ng-template" id="testTemplate.html">
+        <div style="border: 1px solid #ccc; padding: 40px; margin: 10px auto; text-align: center;">
+            <div>
+                <span data-ng-hide="showErrors" style="font-size: 60px; color: green;" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                <span data-ng-show="showErrors" style="font-size: 60px; color: red;" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </div>
+            <div style="font-size: 36px;" data-ng-show="showErrors">
+                <span data-ng-repeat="error in errors">
+                    {{error.label}}<span data-ng-hide="$last">,</span>
+                </span>
+            </div>
+        </div>
+    </script>
+
+    <div class="xt-example" data-ng-controller="sampleFormController">
+        <form xt-form name="stylingForm" strategy="invalid" class="form" role="form" ng-submit="save(stylingForm)" novalidate>
+            <div class="form-group">
+                <label for="stylingFormUsername">Username</label>
+                <input name="username" type="text" class="form-control" id="stylingFormUsername"
+                       ng-model="model.username"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="stylingFormEmail">Email</label>
+                <input name="email" type="email" ng-model="model.email" class="form-control"
+                       id="stylingFormEmail">
+            </div>
+            <div class="form-group">
+                <label for="stylingFormNumber">Number</label>
+                <input name="number" type="number" ng-model="model.number" class="form-control"
+                       id="stylingFormNumber"
+                       placeholder="Must be between 0 and 4" min="0" max="4">
+            </div>
+            <div class="form-group">
+                <xt-validation-summary template-url="testTemplate.html"></xt-validation-summary>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>

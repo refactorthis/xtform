@@ -1,0 +1,79 @@
+<div class="docs-section">
+
+    <h1 id="strategies" class="page-header">Validation Strategies</h1>
+
+    <p>
+        XtForm introduces the concept of a "validation strategy" which defines when to show/hide validation messages
+        to the user. An example of a strategy could be "when the element is dirty and focused". Strategies remove this
+        logic from the view itself allowing the framework to decide when to show/hide messages.
+    </p>
+
+    <h2 id="strategies-inbuilt">Inbuilt Strategies</h2>
+
+    <p>
+        XtForm provides a few commonly used strategies out of the box.
+    </p>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Strategy</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>submitted</td>
+            <td>Only if form has been submitted</td>
+        </tr>
+        <tr>
+            <td>dirty</td>
+            <td>Only if the element in dirty</td>
+        </tr>
+        <tr>
+            <td>dirtyOrSubmitted</td>
+            <td>Only if the element is dirty or form submitted</td>
+        </tr>
+        <tr>
+            <td>focusedAndDirtyOrSubmitted</td>
+            <td>Both focused and (dirty or submitted)</td>
+        </tr>
+        <tr>
+            <td>dirtyAndFocusedOrSubmitted</td>
+            <td>Both (dirty and focused) or submitted</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2 id="strategies-custom">Custom Strategies</h2>
+
+    <p>
+        There are configuration methods for creating custom strategies
+    </p>
+
+    <div class="highlight">
+        <pre class="prettyprint">
+
+angular.module('sample').config(function (xtFormConfigProvider) {
+
+    // Add custom validation strategy
+    xtFormConfigProvider.addValidationStrategy('customStrategy', function (form, ngModel) {
+        return ngModel.$invalid && (form.$submitted || ngModel.$dirty);
+    });
+});
+
+<!-- Add as custom strategy -->
+&lt;form strategy=&quot;customStrategy&quot;&gt;
+    ...
+&lt;/form&gt;
+
+// Set as default for all forms
+angular.module('sample').config(function (xtFormConfigProvider) {
+
+    // Add custom validation strategy
+    xtFormConfigProvider.setDefaultValidationStrategy('customStrategy');
+});
+        </pre>
+    </div>
+
+</div>
