@@ -9,6 +9,7 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
 
     return {
         require: ['^xtForm'],
+        restrict: 'EA',
         scope: true,
         replace: true,
         template: function (element, attrs) {
@@ -23,7 +24,7 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
 
             var inputEl = angular.element(document.getElementById(inputId));
             if (inputEl.length === 0) {
-                throw new Error('Can not find the input element for the validation directive');
+                throw new Error('Can not find input element for the validation directive');
             }
 
             var ngModel = inputEl.controller('ngModel');
@@ -57,7 +58,8 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
              * Will redraw error spans on the page when required
              */
             function redrawErrors() {
-                scope.errors = ngModel.$xtErrors;
+                var noOfErrors = attrs.multiple ? ngModel.$xtErrors.length : 1;
+                scope.errors = ngModel.$xtErrors.slice(0, noOfErrors);
                 scope.showErrors = scope.errors.length > 0;
                 toggleAriaAttributes(scope.showErrors);
             }

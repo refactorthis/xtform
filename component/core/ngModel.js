@@ -70,22 +70,25 @@ xtForm.directive('ngModel', function (xtFormConfig, $rootScope, $interpolate, $d
             function updateErrors() {
                 ngModel.$xtErrors = [];
 
-                angular.forEach(ngModel.$error, function (item, key) {
-                    var showErrors = validationStrategyFn(form, ngModel);
+                angular.forEach(ngModel.$error, function (value, key) {
+                    var showErrors = value && validationStrategyFn(form, ngModel);
                     if (showErrors) {
                         var error = {
                             key: key,
                             message: getErrorMessageForKey(key)
                         };
 
-                        // Ensure required is the last message to be shown
-                        // TODO possibly introduce priority here.
+                        // This is a bit of hack right now to ensure that data type validation errors are shown
+                        // in priority over the required message if both fail.
+                        // TODO will likely need to introduce priorities of error messages
                         if (key === 'required') {
                             ngModel.$xtErrors.push(error);
                         } else {
                             ngModel.$xtErrors.unshift(error);
                         }
                     }
+
+
                 });
 
                 $rootScope.$broadcast('XtForm.ErrorsUpdated', ngModel);

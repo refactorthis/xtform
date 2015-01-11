@@ -22,7 +22,7 @@ xtForm
             }
         };
     })
-    .controller('XtFormController', function ($scope, $element, $attrs, $rootScope, xtFormConfig, $window) {
+    .controller('XtFormController', function ($scope, $element, $attrs, xtFormConfig, $window) {
         'use strict';
 
         var vm = this,
@@ -30,6 +30,24 @@ xtForm
             validationStrategy = $attrs.strategy ?
                 xtFormConfig.getValidationStrategy($attrs.strategy) :
                 xtFormConfig.getDefaultValidationStrategy();
+
+        //polyfill for setSubmitted pre 1.3
+        function setSubmitted() {
+            if (angular.isFunction(form.$setSubmitted)) {
+                form.$setSubmitted();
+                return;
+            }
+            form.$submitted = true;
+            $element.addClass('ng-submitted');
+        }
+
+        function setUnsubmitted() {
+            if (angular.isFunction(form.$setSubmitted)) {
+                return;
+            }
+            form.$submitted = false;
+            $element.removeClass('ng-submitted');
+        }
 
         angular.extend(vm, {
 
@@ -40,22 +58,24 @@ xtForm
             },
 
             submit: function () {
-                vm.form.$setSubmitted();
+                setSubmitted();
 
                 // focus first error if required
                 if (form.$invalid && $attrs.focusError) {
                     $window.setTimeout(function () {
                         $element.find('.ng-invalid:input:visible:first').focus();
                     });
-                } else {
-                    $rootScope.$broadcast('XtForm.ForceErrorUpdate', null, 'submit');
                 }
+
+                $scope.$broadcast('XtForm.ForceErrorUpdate', null, 'submit');
             },
 
             reset: function () {
                 vm.form.$setPristine();
                 vm.form.$setUntouched();
-                $rootScope.$broadcast('XtForm.ForceErrorUpdate', null, 'reset');
+                setUnsubmitted();
+
+                $scope.$broadcast('XtForm.ForceErrorUpdate', null, 'reset');
             }
 
         });

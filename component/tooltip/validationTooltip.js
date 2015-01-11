@@ -3,6 +3,7 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
 
     return {
         require: ['^xtForm'],
+        restrict: 'EA',
         link: function (scope, element, attrs) {
 
             var ngModelElement,
@@ -61,7 +62,8 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
                 }
 
                 // TODO This is a HACK to ensure the ngModel controller is created on the element before usage.
-                // FIXME this should be removed and replaced with an alternative method
+                // FIXME this should be removed and replaced with an alternative method perhaps on the ngModel directive
+                // to register with xtform controller
                 $timeout(function () {
                     ngModel = ngModelElement.controller('ngModel');
                     if (!ngModel) {
@@ -79,7 +81,9 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
                 }
 
                 // hmm reduce adds br to front of string..
+                var noOfErrors = attrs.multiple ? ngModel.$xtErrors.length : 1;
                 var errors = ngModel.$xtErrors
+                    .slice(0, noOfErrors)
                     .map(function (value) {
                         return value.message;
                     })
