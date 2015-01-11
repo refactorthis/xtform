@@ -1,0 +1,17 @@
+<div class="panel panel-danger" data-ng-show="showErrors">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            Validation errors
+        </h3>
+    </div>
+    <div class="panel-body">
+        <ul class="xt-validation-summary">
+            <li data-ng-repeat="error in errors" data-key="{{error.key}}">
+                <span data-ng-show="showLabel" data-ng-bind="error.label"></span>
+                -
+                <span data-ng-bind="error.message"></span>
+            </li>
+        </ul>
+    </div>
+</div>

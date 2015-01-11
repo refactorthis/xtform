@@ -1,0 +1,205 @@
+<div class="docs-section">
+
+    <h1 id="inline">Inline Validation</h1>
+
+    <p>
+        Basic inline form validation. Username is required, and email must be a valid email.
+    </p>
+
+    <div class="xt-example" data-ng-controller="sampleFormController">
+        <form name="inlineForm" xt-form ng-submit="save(inlineForm)" role="form" novalidate>
+            <div class="form-group">
+                <label for="inlineUsername">Username</label>
+                <input name="username" type="text" class="form-control" id="inlineUsername" placeholder="Required field"
+                       ng-model="model.username" required>
+                <xt-validation-inline for="inlineUsername"></xt-validation-inline>
+            </div>
+            <div class="form-group">
+                <label for="inlineEmail">Email</label>
+                <input name="email" type="email" ng-model="model.email" class="form-control" id="inlineEmail"
+                       placeholder="Must be valid email" required>
+                <xt-validation-inline for="inlineEmail"></xt-validation-inline>
+            </div>
+            <div class="form-group">
+                <label for="inlineNumber">Number</label>
+                <input name="number" type="number" ng-model="model.number" class="form-control" id="inlineNumber"
+                       placeholder="Must be between 0 and 6" min="0" max="6">
+                <xt-validation-inline for="inlineNumber"></xt-validation-inline>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+
+&lt;form name=&quot;inlineForm&quot; xt-form ng-submit=&quot;save(inlineForm)&quot; role=&quot;form&quot; novalidate&gt;
+
+    &lt;label for=&quot;inlineUsername&quot;&gt;Username&lt;/label&gt;
+    &lt;input name=&quot;username&quot; type=&quot;text&quot; class=&quot;form-control&quot;
+        id=&quot;inlineUsername&quot; placeholder=&quot;Required field&quot;
+        ng-model=&quot;model.username&quot; required&gt;
+    &lt;xt-validation-inline for=&quot;inlineUsername&quot;&gt;&lt;/xt-validation-inline&gt;
+
+    &lt;label for=&quot;inlineEmail&quot;&gt;Email&lt;/label&gt;
+    &lt;input name=&quot;email&quot; type=&quot;email&quot; ng-model=&quot;model.email&quot;
+        class=&quot;form-control&quot; id=&quot;inlineEmail&quot;
+        placeholder=&quot;Must be valid email&quot; required&gt;
+    &lt;xt-validation-inline for=&quot;inlineEmail&quot;&gt;&lt;/xt-validation-inline&gt;
+
+    &lt;label for=&quot;inlineNumber&quot;&gt;Number&lt;/label&gt;
+    &lt;input name=&quot;number&quot; type=&quot;number&quot; ng-model=&quot;model.number&quot;
+        class=&quot;form-control&quot; id=&quot;inlineNumber&quot;
+        placeholder=&quot;Must be between 0 and 6&quot; min=&quot;0&quot; max=&quot;6&quot;&gt;
+    &lt;xt-validation-inline for=&quot;inlineNumber&quot;&gt;&lt;/xt-validation-inline&gt;
+
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+        </pre>
+    </div>
+</div>
+<div class="docs-section">
+
+    <h1 id="summary">Validation summary</h1>
+
+    <p>
+        XtForm comes with a built-in validation summary directive which lists all validation errors in one control
+    </p>
+
+    <div class="xt-example" data-ng-controller="sampleFormController">
+        <form xt-form name="form2" class="form" role="form" ng-submit="save(form2)" novalidate>
+            <div class="form-group">
+                <label for="username2">Username</label>
+                <input name="username" type="text" class="form-control" id="username2" ng-model="model.username"
+                       required>
+            </div>
+            <div class="form-group">
+                <label for="email2">Email</label>
+                <input name="email" type="email" ng-model="model.email" class="form-control" id="email2">
+            </div>
+            <div class="form-group">
+                <label for="number2">Number</label>
+                <input name="number" type="number" ng-model="model.number" class="form-control" id="number2"
+                       placeholder="Must be between 0 and 4" min="0" max="4">
+            </div>
+            <div class="form-group">
+                <xt-validation-summary></xt-validation-summary>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+
+&lt;form xt-form name=&quot;form2&quot; class=&quot;form&quot; role=&quot;form&quot; ng-submit=&quot;save(form2)&quot; novalidate&gt;
+
+    &lt;label for=&quot;username2&quot;&gt;Username&lt;/label&gt;
+    &lt;input name=&quot;username&quot; type=&quot;text&quot; class=&quot;form-control&quot; id=&quot;username2&quot;
+        ng-model=&quot;model.username&quot; required&gt;
+
+    &lt;label for=&quot;email2&quot;&gt;Email&lt;/label&gt;
+    &lt;input name=&quot;email&quot; type=&quot;email&quot; ng-model=&quot;model.email&quot;
+        class=&quot;form-control&quot; id=&quot;email2&quot;&gt;
+
+    &lt;label for=&quot;number2&quot;&gt;Number&lt;/label&gt;
+    &lt;input name=&quot;number&quot; type=&quot;number&quot; ng-model=&quot;model.number&quot;
+        class=&quot;form-control&quot; id=&quot;number2&quot;
+        placeholder=&quot;Must be between 0 and 4&quot; min=&quot;0&quot; max=&quot;4&quot;&gt;
+
+    &lt;xt-validation-summary&gt;&lt;/xt-validation-summary&gt;
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+        </pre>
+    </div>
+
+</div>
+<div class="docs-section">
+    <h1 id="tooltip">Tooltip Validation</h1>
+
+    <h1 id="tooltip-standard">Standard</h1>
+
+    <p>
+        XtForm supports tooltip validations when integrated with the twitter bootstrap tooltip plugin or equivalent
+        <code>$.fn.tooltip()</code> plugin. The following example uses the 'focusedAndDirtyOrSubmitted' strategy with
+        focusError option set. These options ensure that the message is only shown when focused and will auto-focus
+        on submit. For more information on strategies and other form options see <a href="strategy-basic">Strategies</a>.
+    </p>
+
+    <div class="xt-example" data-ng-controller="sampleFormController">
+        <form xt-form strategy="focusedAndDirtyOrSubmitted" focus-error="true" name="tooltipForm" class="form"
+              role="form" ng-submit="save(tooltipForm)" novalidate>
+            <div class="form-group">
+                <label for="tooltipUsername">Username</label>
+                <input name="username" type="text" class="form-control" id="tooltipUsername" ng-model="model.username"
+                       xt-validation-tooltip required>
+            </div>
+            <div class="form-group">
+                <label for="tooltipEmail">Email</label>
+                <input name="email" type="email" ng-model="model.email" class="form-control" xt-validation-tooltip
+                       id="tooltipEmail">
+            </div>
+            <div class="form-group">
+                <label for="tooltipNumber">Number</label>
+                <input name="number" type="number" ng-model="model.number" class="form-control" id="tooltipNumber"
+                       xt-validation-tooltip placeholder="Must be between 0 and 4" min="0" max="4">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+&lt;form xt-form strategy=&quot;focusedAndDirtyOrSubmitted&quot; focus-error=&quot;true&quot;
+    name=&quot;tooltipForm&quot; role=&quot;form&quot; ng-submit=&quot;save(tooltipForm)&quot;
+    novalidate&gt;
+
+    &lt;label for=&quot;u&quot;&gt;Username&lt;/label&gt;
+    &lt;input name=&quot;username&quot; id=&quot;u&quot; ng-model=&quot;model.username&quot;
+        xt-validation-tooltip required&gt;
+
+    &lt;label for=&quot;e&quot;&gt;Email&lt;/label&gt;
+    &lt;input name=&quot;email&quot; id=&quot;e&quot; type=&quot;email&quot; ng-model=&quot;model.email&quot;
+         xt-validation-tooltip&gt;
+
+    &lt;label for=&quot;n&quot;&gt;Number&lt;/label&gt;
+    &lt;input name=&quot;number&quot; type=&quot;number&quot; ng-model=&quot;model.number&quot;
+        id=&quot;n&quot; xt-validation-tooltip placeholder=&quot;Must be between 0 and 4&quot;
+        min=&quot;0&quot; max=&quot;4&quot;&gt;
+
+    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;
+&lt;/form&gt;
+        </pre>
+    </div>
+
+    <h2 id="tooltip-container">Separate Tooltip Element</h2>
+
+    <p>
+        Supports tooltips on an element other than the input. This can come in handy when building custom controls or
+        when flexibility of placement is needed as seen below.
+    </p>
+
+    <div class="xt-example" data-ng-controller="sampleFormController">
+        <form name="tooltip2form" xt-form class="form" role="form" ng-submit="save(tooltip2form)" novalidate>
+            <div class="form-group">
+                <label for="tooltip2Email">Email</label>
+                <input type="email" class="form-control" id="tooltip2Email" ng-model="model.email" required
+                       placeholder="The monkey helps with errors!">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+            <div class="clearfix">
+                <img class="pull-right" xt-validation-tooltip="tooltip2Email" height="90" placement="left"
+                     style="padding: 5px;"
+                     width="110" alt="Monkey pic" src="img/monkey.jpeg">
+            </div>
+        </form>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+        </pre>
+    </div>
+
+</div>

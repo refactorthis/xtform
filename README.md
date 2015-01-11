@@ -3,7 +3,6 @@ xtform
 
 AngularJS form validation directive.
 
-
 ![example](http://blog.brentmckendrick.com/assets/images/xtform.png)
 
 For online examples [click here](http://www.brentmckendrick.com/code/xtform).

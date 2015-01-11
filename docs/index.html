@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="sample">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="xtForm AngularJS validation extensions">
+    <meta name="author" content="Brent McKendrick">
+
+    <title>XtForm AngularJS form validations</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link href="dist/google-code-prettify/bin/prettify.min.css" rel="stylesheet"/>
+    <link href="css/main.css" rel="stylesheet"/>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="100" data-target="#nav-container">
+
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h1>xtForm.js</h1>
+
+                <p class="subtitle">Super simple AngularJS validations</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="social-links" style="display: none;">
+    <iframe src="http://ghbtns.com/github-btn.html?user=refactorthis&repo=xtform&type=watch&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+    <iframe src="http://ghbtns.com/github-btn.html?user=refactorthis&type=follow&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="165" height="20"></iframe>
+    <div class="fb-like" data-href="http://www.brentmckendrick.com/code/xtform/" data-layout="button_count"
+         data-action="like" data-show-faces="false" data-share="true"></div>
+    <a href="https://twitter.com/share?url=http://www.brentmckendrick.com/code/xtform/"
+       class="twitter-share-button" data-hashtags="AngularJS,xtForm">Tweet</a>
+
+    <div id="fb-root"></div>
+</div>
+
+<div class="container">
+    <div class="col-sm-9">
+        <ng-include src="'templates/introduction.html'"></ng-include>
+        <ng-include src="'templates/gettingStarted.html'"></ng-include>
+        <ng-include src="'templates/presentation.html'"></ng-include>
+        <ng-include src="'templates/errorMessages.html'"></ng-include>
+        <ng-include src="'templates/strategies.html'"></ng-include>
+        <ng-include src="'templates/styling.html'"></ng-include>
+        <ng-include src="'templates/accessibility.html'"></ng-include>
+
+        <div class="spacer"></div>
+
+        <hr>
+
+        <footer>
+            <p>&copy; Brent McKendrick 2013-2015</p>
+        </footer>
+
+    </div>
+    <div id="nav-container" class="col-sm-3">
+        <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" data-spy="affix" data-offset-top="350"
+             data-offset-bottom="200">
+            <ul class="nav bs-docs-sidenav">
+
+                <li>
+                    <a href="#introduction">Introduction</a>
+                </li>
+                <li>
+                    <a href="#gettingStarted">Getting Started</a>
+                </li>
+                <li>
+                    <a href="#inline">Inline Validation</a>
+                </li>
+                <li>
+                    <a href="#summary">Validation Summary</a>
+                </li>
+                <li>
+                    <a href="#tooltip">Tooltip Validation</a>
+                    <ul class="nav">
+                        <li><a href="#tooltip-standard">Standard</a></li>
+                        <li><a href="#tooltip-container">Separate tooltip element</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#errors">Custom Error Messages</a>
+                    <ul class="nav">
+                        <li><a href="#errors-element">Errors per element</a></li>
+                        <li><a href="#errors-defaults">App wide defaults</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#strategies">Validation strategies</a>
+                    <ul class="nav">
+                        <li><a href="#strategies-inbuilt">In-built strategies</a></li>
+                        <li><a href="#strategies-custom">Custom strategy</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#styling">Styling</a>
+                </li>
+                <li>
+                    <a href="#accessibility">Accessibility</a>
+                </li>
+            </ul>
+            <a class="back-to-top" href="##top">
+                Back to top
+            </a>
+
+        </nav>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<!-- todo clean up build for docs -->
+<script src="dist/google-code-prettify/bin/prettify.min.js"></script>
+<script src="dist/xtForm.tpl.js"></script>
+<script src="js/docs.js"></script>
+<script src="dist/js/docs.tpl.js"></script>
+</body>
+</html>

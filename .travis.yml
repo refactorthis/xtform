@@ -1,0 +1,6 @@
+# See http://docs.travis-ci.com/user/languages/javascript-with-nodejs/
+# npm install && npm start are run by travis, everything is covered in the package.json file
+
+language: node_js
+node_js:
+  - "0.10"

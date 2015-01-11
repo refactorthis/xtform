@@ -1,0 +1,65 @@
+<div class="docs-section">
+    <h1 id="introduction" class="page-header">Introduction</h1>
+
+    <p>
+        XtForm extends the form functionality built into the AngularJS framework to provide features such as:
+    </p>
+    <ul>
+        <li><strong>Tooltip, Form & Inline Validation Styles</strong> - all styles inbuilt & easy to use</li>
+        <li><strong>Generated error messages</strong> - App-wide defaults to save needless repetition</li>
+        <li><strong>Custom messages</strong> - Custom messages set as attributes on the input itself</li>
+        <li><strong>Validation Strategy</strong> - Abstracts the validation logic from your views
+            eg. Show on focus, on submit, on dirty, or any combination by switching different strategies in the
+            config provider
+        </li>
+        <li><strong>Accessibility</strong> - Aria attributes handled automatically to ensure the best support for screen
+            readers.
+        </li>
+        <li><strong>Styling</strong> - Fully templated and class annotated for easy styling</li>
+    </ul>
+
+    <div class="xt-example" data-ng-controller="sampleFormController">
+        <form name="basicForm" xt-form ng-submit="save(basicForm)" role="form" novalidate>
+            <div class="form-group">
+                <label for="basicUsername">Username</label>
+                <input name="username" type="text" class="form-control" id="basicUsername" placeholder="Required field"
+                       ng-model="model.username" required>
+                <xt-validation-inline for="basicUsername"></xt-validation-inline>
+            </div>
+            <div class="form-group">
+                <label for="basicEmail">Email</label>
+                <input name="email" type="email" ng-model="model.email" class="form-control" id="basicEmail"
+                       placeholder="Must be valid email">
+                <xt-validation-inline for="basicEmail"></xt-validation-inline>
+            </div>
+            <div class="form-group">
+                <label for="basicNumber">Number</label>
+                <input name="number" type="number" ng-model="model.number" class="form-control" id="basicNumber"
+                       placeholder="Must be between 0 and 6" min="0" max="6">
+                <xt-validation-inline for="basicNumber"></xt-validation-inline>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+    <div class="highlight">
+        <pre class="prettyprint">
+
+&lt;form name=&quot;form&quot; xt-form role=&quot;form&quot; novalidate&gt;
+
+    &lt;label for=&quot;username&quot;&gt;Username&lt;/label&gt;
+    &lt;input name=&quot;username&quot; id=&quot;username&quot; ng-model=&quot;model.username&quot; required&gt;
+    &lt;xt-validation-inline for=&quot;username&quot;&gt;&lt;/xt-validation&gt;
+
+    &lt;label for=&quot;basicNumber&quot;&gt;Number&lt;/label&gt;
+    &lt;input id=&quot;basicNumber&quot; name=&quot;number&quot; type=&quot;number&quot; ng-model=&quot;model.number&quot;
+        min=&quot;0&quot; max=&quot;6&quot;&gt;
+    &lt;xt-validation-inline for=&quot;basicNumber&quot;&gt;&lt;/xt-validation&gt;
+
+    &lt;button type=&quot;submit&quot;&gt;Save&lt;/button&gt;
+
+&lt;/form&gt;
+        </pre>
+    </div>
+</div>
