@@ -49,7 +49,7 @@ gulp.task('scripts', function () {
 
 gulp.task('templates', ['scripts'], function () {
 
-    return streamqueue({objectMode: true},
+    streamqueue({objectMode: true},
 
         // read built scripts file
         gulp.src(config.buildFolder + '/' + config.buildJsFilename),
@@ -73,13 +73,11 @@ gulp.task('templates', ['scripts'], function () {
         .pipe(plugins.filesize())
         .on('error', plugins.util.log);
 
+    gulp.src('dist/*').pipe(gulp.dest('docs/dist/'));
+
 });
 
 gulp.task('docs', ['default'], function () {
-
-    // Todo give the docs build a cleanup
-    gulp.src('bower_components/google-code-prettify/**/*')
-        .pipe(gulp.dest('docs/dist/google-code-prettify'));
 
     gulp.src('dist/*').pipe(gulp.dest('docs/dist/'));
 
