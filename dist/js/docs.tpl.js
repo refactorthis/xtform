@@ -259,12 +259,12 @@ angular.module('sample').run(['$templateCache', function($templateCache) {
     '\n' +
     '    &lt;label for=&quot;username&quot;&gt;Username&lt;/label&gt;\n' +
     '    &lt;input name=&quot;username&quot; id=&quot;username&quot; ng-model=&quot;model.username&quot; required&gt;\n' +
-    '    &lt;xt-validation-inline for=&quot;username&quot;&gt;&lt;/xt-validation&gt;\n' +
+    '    &lt;xt-validation-inline for=&quot;username&quot;&gt;&lt;/xt-validation-inline&gt;\n' +
     '\n' +
     '    &lt;label for=&quot;basicNumber&quot;&gt;Number&lt;/label&gt;\n' +
     '    &lt;input id=&quot;basicNumber&quot; name=&quot;number&quot; type=&quot;number&quot; ng-model=&quot;model.number&quot;\n' +
     '        min=&quot;0&quot; max=&quot;6&quot;&gt;\n' +
-    '    &lt;xt-validation-inline for=&quot;basicNumber&quot;&gt;&lt;/xt-validation&gt;\n' +
+    '    &lt;xt-validation-inline for=&quot;basicNumber&quot;&gt;&lt;/xt-validation-inline&gt;\n' +
     '\n' +
     '    &lt;button type=&quot;submit&quot;&gt;Save&lt;/button&gt;\n' +
     '\n' +
@@ -432,6 +432,59 @@ angular.module('sample').run(['$templateCache', function($templateCache) {
     '&lt;form xt-form strategy=&quot;focusedAndDirtyOrSubmitted&quot; focus-error=&quot;true&quot;\n' +
     '    name=&quot;tooltipForm&quot; role=&quot;form&quot; ng-submit=&quot;save(tooltipForm)&quot;\n' +
     '    novalidate&gt;\n' +
+    '\n' +
+    '    &lt;label for=&quot;u&quot;&gt;Username&lt;/label&gt;\n' +
+    '    &lt;input name=&quot;username&quot; id=&quot;u&quot; ng-model=&quot;model.username&quot;\n' +
+    '        xt-validation-tooltip required&gt;\n' +
+    '\n' +
+    '    &lt;label for=&quot;e&quot;&gt;Email&lt;/label&gt;\n' +
+    '    &lt;input name=&quot;email&quot; id=&quot;e&quot; type=&quot;email&quot; ng-model=&quot;model.email&quot;\n' +
+    '         xt-validation-tooltip&gt;\n' +
+    '\n' +
+    '    &lt;label for=&quot;n&quot;&gt;Number&lt;/label&gt;\n' +
+    '    &lt;input name=&quot;number&quot; type=&quot;number&quot; ng-model=&quot;model.number&quot;\n' +
+    '        id=&quot;n&quot; xt-validation-tooltip placeholder=&quot;Must be between 0 and 4&quot;\n' +
+    '        min=&quot;0&quot; max=&quot;4&quot;&gt;\n' +
+    '\n' +
+    '    &lt;button type=&quot;submit&quot; class=&quot;btn btn-primary&quot;&gt;Save&lt;/button&gt;\n' +
+    '&lt;/form&gt;\n' +
+    '        </pre>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <h1 id="tooltip-hover">Hover</h1>\n' +
+    '\n' +
+    '    <p>\n' +
+    '        The tooltip trigger can be overridden on the form element by setting the tooltip-trigger attribute.\n' +
+    '    </p>\n' +
+    '\n' +
+    '    <div class="xt-example" data-ng-controller="sampleFormController">\n' +
+    '        <form xt-form strategy="dirty" focus-error="true" name="tooltipForm" class="form"\n' +
+    '              role="form" ng-submit="save(tooltipForm)" novalidate tooltip-trigger="hover manual">\n' +
+    '            <div class="form-group">\n' +
+    '                <label for="tooltipUsername">Username</label>\n' +
+    '                <input name="username" type="text" class="form-control" id="tooltipUsername" ng-model="model.username"\n' +
+    '                       xt-validation-tooltip required>\n' +
+    '            </div>\n' +
+    '            <div class="form-group">\n' +
+    '                <label for="tooltipEmail">Email</label>\n' +
+    '                <input name="email" type="email" ng-model="model.email" class="form-control" xt-validation-tooltip\n' +
+    '                       id="tooltipEmail">\n' +
+    '            </div>\n' +
+    '            <div class="form-group">\n' +
+    '                <label for="tooltipNumber">Number</label>\n' +
+    '                <input name="number" type="number" ng-model="model.number" class="form-control" id="tooltipNumber"\n' +
+    '                       xt-validation-tooltip placeholder="Must be between 0 and 4" min="0" max="4">\n' +
+    '            </div>\n' +
+    '            <div class="form-group">\n' +
+    '                <button type="submit" class="btn btn-primary">Save</button>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="highlight">\n' +
+    '        <pre class="prettyprint">\n' +
+    '&lt;form xt-form strategy=&quot;dirty&quot; focus-error=&quot;true&quot;\n' +
+    '    name=&quot;tooltipForm&quot; role=&quot;form&quot; ng-submit=&quot;save(tooltipForm)&quot;\n' +
+    '    novalidate tooltip-trigger=&quot;hover manual&quot;&gt;\n' +
     '\n' +
     '    &lt;label for=&quot;u&quot;&gt;Username&lt;/label&gt;\n' +
     '    &lt;input name=&quot;username&quot; id=&quot;u&quot; ng-model=&quot;model.username&quot;\n' +

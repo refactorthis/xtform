@@ -175,6 +175,8 @@ xtForm
                 return validationStrategy;
             },
 
+            tooltipTrigger: $attrs.tooltipTrigger,
+
             submit: function () {
                 setSubmitted();
 
@@ -197,7 +199,6 @@ xtForm
             }
 
         });
-
     });
 xtForm.provider('xtFormConfig', function () {
     'use strict';
@@ -232,7 +233,7 @@ xtForm.provider('xtFormConfig', function () {
                 return form.$invalid && form.$submitted;
             },
             dirty: function (form, ngModel) {
-                return ngModel.$invalid && (form.$submitted || ngModel.$dirty);
+                return ngModel.$invalid && ngModel.$dirty;
             },
             dirtyOrSubmitted: function (form, ngModel) {
                 return ngModel.$invalid && (form.$submitted || ngModel.$dirty);
@@ -280,49 +281,6 @@ xtForm.provider('xtFormConfig', function () {
     };
 
     self.setDefaultValidationStrategy('dirtyOrSubmitted');
-});
-xtForm.directive('xtValidationSummary', function ($templateCache) {
-    'use strict';
-
-    return {
-        require: ['^xtForm', '^form'],
-        restrict: 'EA',
-        replace: true,
-        scope: true,
-        template: function (element, attrs) {
-            return $templateCache.get(attrs.templateUrl || 'xtForm/summary/validationSummary.html');
-        },
-        link: function (scope, element, attrs, ctrls) {
-
-            var form = ctrls[1];
-            scope.showLabel = (attrs.showLabel === 'true') || angular.isUndefined(attrs.showLabel);
-
-            function redrawErrors() {
-
-                scope.errors = [];
-                angular.forEach(form, function (ngModel, ngModelKey) {
-                    if (ngModelKey[0] !== '$') {
-
-                        // can show one error for each input, or multiple
-                        var noOfErrors = attrs.multiple ? ngModel.$xtErrors.length : 1,
-                            errors = ngModel.$xtErrors.slice(0, noOfErrors);
-
-                        angular.forEach(errors, function (value) {
-                            scope.errors.push({
-                                key: value.key,
-                                label: ngModel.$label,
-                                message: value.message
-                            });
-                        });
-                    }
-                });
-
-                scope.showErrors = scope.errors.length > 0;
-            }
-
-            scope.$on('XtForm.ErrorsUpdated', redrawErrors);
-        }
-    };
 });
 xtForm.directive('xtValidationInline', function ($templateCache) {
     'use strict';
@@ -409,13 +367,56 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
         }
     };
 });
+xtForm.directive('xtValidationSummary', function ($templateCache) {
+    'use strict';
+
+    return {
+        require: ['^xtForm', '^form'],
+        restrict: 'EA',
+        replace: true,
+        scope: true,
+        template: function (element, attrs) {
+            return $templateCache.get(attrs.templateUrl || 'xtForm/summary/validationSummary.html');
+        },
+        link: function (scope, element, attrs, ctrls) {
+
+            var form = ctrls[1];
+            scope.showLabel = (attrs.showLabel === 'true') || angular.isUndefined(attrs.showLabel);
+
+            function redrawErrors() {
+
+                scope.errors = [];
+                angular.forEach(form, function (ngModel, ngModelKey) {
+                    if (ngModelKey[0] !== '$') {
+
+                        // can show one error for each input, or multiple
+                        var noOfErrors = attrs.multiple ? ngModel.$xtErrors.length : 1,
+                            errors = ngModel.$xtErrors.slice(0, noOfErrors);
+
+                        angular.forEach(errors, function (value) {
+                            scope.errors.push({
+                                key: value.key,
+                                label: ngModel.$label,
+                                message: value.message
+                            });
+                        });
+                    }
+                });
+
+                scope.showErrors = scope.errors.length > 0;
+            }
+
+            scope.$on('XtForm.ErrorsUpdated', redrawErrors);
+        }
+    };
+});
 xtForm.directive('xtValidationTooltip', function ($timeout) {
     'use strict';
 
     return {
-        require: ['^xtForm'],
+        require: '^xtForm',
         restrict: 'EA',
-        link: function (scope, element, attrs) {
+        link: function (scope, element, attrs, xtForm) {
 
             var ngModelElement,
                 ngModel,
@@ -451,7 +452,7 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
                     animation: false,
                     html: true,
                     placement: attrs.placement || 'bottom',
-                    trigger: 'manual',
+                    trigger: xtForm.tooltipTrigger || 'manual',
                     container: attrs.container || 'body'
                 });
             }
@@ -460,11 +461,9 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
 
                 // allow for a different tooltip container that is not on the ngModel element
                 var ngModelElementId = attrs.for || attrs.xtValidationTooltip;
-                if (ngModelElementId) {
-                    ngModelElement = angular.element(document.getElementById(ngModelElementId));
-                } else {
-                    ngModelElement = element;
-                }
+                ngModelElement = ngModelElementId ?
+                    angular.element(document.getElementById(ngModelElementId)) :
+                    element;
 
                 ngModelElement.addClass('xt-validation-tooltip');
 
