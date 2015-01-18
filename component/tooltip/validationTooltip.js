@@ -2,9 +2,9 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
     'use strict';
 
     return {
-        require: ['^xtForm'],
+        require: '^xtForm',
         restrict: 'EA',
-        link: function (scope, element, attrs) {
+        link: function (scope, element, attrs, xtForm) {
 
             var ngModelElement,
                 ngModel,
@@ -40,7 +40,7 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
                     animation: false,
                     html: true,
                     placement: attrs.placement || 'bottom',
-                    trigger: 'manual',
+                    trigger: xtForm.tooltipTrigger || 'manual',
                     container: attrs.container || 'body'
                 });
             }
@@ -49,11 +49,9 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
 
                 // allow for a different tooltip container that is not on the ngModel element
                 var ngModelElementId = attrs.for || attrs.xtValidationTooltip;
-                if (ngModelElementId) {
-                    ngModelElement = angular.element(document.getElementById(ngModelElementId));
-                } else {
-                    ngModelElement = element;
-                }
+                ngModelElement = ngModelElementId ?
+                    angular.element(document.getElementById(ngModelElementId)) :
+                    element;
 
                 ngModelElement.addClass('xt-validation-tooltip');
 

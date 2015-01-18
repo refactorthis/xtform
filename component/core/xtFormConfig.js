@@ -31,7 +31,7 @@ xtForm.provider('xtFormConfig', function () {
                 return form.$invalid && form.$submitted;
             },
             dirty: function (form, ngModel) {
-                return ngModel.$invalid && (form.$submitted || ngModel.$dirty);
+                return ngModel.$invalid && ngModel.$dirty;
             },
             dirtyOrSubmitted: function (form, ngModel) {
                 return ngModel.$invalid && (form.$submitted || ngModel.$dirty);

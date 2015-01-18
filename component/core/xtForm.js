@@ -57,6 +57,8 @@ xtForm
                 return validationStrategy;
             },
 
+            tooltipTrigger: $attrs.tooltipTrigger,
+
             submit: function () {
                 setSubmitted();
 
@@ -79,5 +81,4 @@ xtForm
             }
 
         });
-
     });
