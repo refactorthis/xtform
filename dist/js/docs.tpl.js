@@ -458,7 +458,7 @@ angular.module('sample').run(['$templateCache', function($templateCache) {
     '    </p>\n' +
     '\n' +
     '    <div class="xt-example" data-ng-controller="sampleFormController">\n' +
-    '        <form xt-form strategy="dirty" focus-error="true" name="tooltipForm" class="form"\n' +
+    '        <form xt-form strategy="invalid" focus-error="true" name="tooltipForm" class="form"\n' +
     '              role="form" ng-submit="save(tooltipForm)" novalidate tooltip-trigger="hover manual">\n' +
     '            <div class="form-group">\n' +
     '                <label for="tooltipUsername">Username</label>\n' +
@@ -482,7 +482,7 @@ angular.module('sample').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '    <div class="highlight">\n' +
     '        <pre class="prettyprint">\n' +
-    '&lt;form xt-form strategy=&quot;dirty&quot; focus-error=&quot;true&quot;\n' +
+    '&lt;form xt-form strategy=&quot;invalid&quot; focus-error=&quot;true&quot;\n' +
     '    name=&quot;tooltipForm&quot; role=&quot;form&quot; ng-submit=&quot;save(tooltipForm)&quot;\n' +
     '    novalidate tooltip-trigger=&quot;hover manual&quot;&gt;\n' +
     '\n' +
