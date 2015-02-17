@@ -17,7 +17,7 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
         },
         link: function (scope, element, attrs) {
 
-            var inputId = attrs.for || attrs.xtValidationInline;
+            var inputId = attrs['for'] || attrs.xtValidationInline;
             if (angular.isUndefined(inputId)) {
                 throw new Error('The validation input id must be specified eg. for="id"');
             }

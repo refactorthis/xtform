@@ -48,7 +48,7 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
             function setupNgModel() {
 
                 // allow for a different tooltip container that is not on the ngModel element
-                var ngModelElementId = attrs.for || attrs.xtValidationTooltip;
+                var ngModelElementId = attrs['for'] || attrs.xtValidationTooltip;
                 ngModelElement = ngModelElementId ?
                     angular.element(document.getElementById(ngModelElementId)) :
                     element;
