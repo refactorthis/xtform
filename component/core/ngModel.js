@@ -1,4 +1,4 @@
-xtForm.directive('ngModel', function (xtFormConfig, $rootScope, $interpolate, $document) {
+xtForm.directive('ngModel', ['xtFormConfig', '$rootScope', '$interpolate', '$document', function (xtFormConfig, $rootScope, $interpolate, $document) {
     'use strict';
 
     var UNTOUCHED_CLASS = 'ng-untouched',
@@ -106,4 +106,4 @@ xtForm.directive('ngModel', function (xtFormConfig, $rootScope, $interpolate, $d
             }
         }
     };
-});
+}]);

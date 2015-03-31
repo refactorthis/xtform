@@ -7,7 +7,7 @@
 
 /*jshint unused:false*/
 var xtForm = angular.module('xtForm', []);
-xtForm.directive('ngModel', function (xtFormConfig, $rootScope, $interpolate, $document) {
+xtForm.directive('ngModel', ['xtFormConfig', '$rootScope', '$interpolate', '$document', function (xtFormConfig, $rootScope, $interpolate, $document) {
     'use strict';
 
     var UNTOUCHED_CLASS = 'ng-untouched',
@@ -115,9 +115,9 @@ xtForm.directive('ngModel', function (xtFormConfig, $rootScope, $interpolate, $d
             }
         }
     };
-});
+}]);
 xtForm
-    .directive('xtForm', function ($timeout) {
+    .directive('xtForm', ['$timeout', function ($timeout) {
         'use strict';
 
         return {
@@ -139,8 +139,8 @@ xtForm
                     });
             }
         };
-    })
-    .controller('XtFormController', function ($scope, $element, $attrs, xtFormConfig, $window) {
+    }])
+    .controller('XtFormController', ['$scope', '$element', '$attrs', 'xtFormConfig', '$window', function ($scope, $element, $attrs, xtFormConfig, $window) {
         'use strict';
 
         var vm = this,
@@ -199,7 +199,7 @@ xtForm
             }
 
         });
-    });
+    }]);
 xtForm.provider('xtFormConfig', function () {
     'use strict';
 
@@ -282,7 +282,7 @@ xtForm.provider('xtFormConfig', function () {
 
     self.setDefaultValidationStrategy('dirtyOrSubmitted');
 });
-xtForm.directive('xtValidationInline', function ($templateCache) {
+xtForm.directive('xtValidationInline', ['$templateCache', function ($templateCache) {
     'use strict';
 
     var _uniqueIdCounter = 0;
@@ -366,8 +366,8 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
             activate();
         }
     };
-});
-xtForm.directive('xtValidationSummary', function ($templateCache) {
+}]);
+xtForm.directive('xtValidationSummary', ['$templateCache', function ($templateCache) {
     'use strict';
 
     return {
@@ -409,8 +409,8 @@ xtForm.directive('xtValidationSummary', function ($templateCache) {
             scope.$on('XtForm.ErrorsUpdated', redrawErrors);
         }
     };
-});
-xtForm.directive('xtValidationTooltip', function ($timeout) {
+}]);
+xtForm.directive('xtValidationTooltip', ['$timeout', function ($timeout) {
     'use strict';
 
     return {
@@ -519,7 +519,7 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
             activate();
         }
     };
-});
+}]);
 })();
 angular.module('xtForm').run(['$templateCache', function($templateCache) {
   $templateCache.put('xtForm/inline/validationInline.html',

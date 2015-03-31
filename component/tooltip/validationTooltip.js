@@ -1,4 +1,4 @@
-xtForm.directive('xtValidationTooltip', function ($timeout) {
+xtForm.directive('xtValidationTooltip', ['$timeout', function ($timeout) {
     'use strict';
 
     return {
@@ -107,4 +107,4 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
             activate();
         }
     };
-});
+}]);
