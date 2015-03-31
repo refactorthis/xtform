@@ -1,4 +1,4 @@
-xtForm.directive('xtValidationSummary', function ($templateCache) {
+xtForm.directive('xtValidationSummary', ['$templateCache', function ($templateCache) {
     'use strict';
 
     return {
@@ -40,4 +40,4 @@ xtForm.directive('xtValidationSummary', function ($templateCache) {
             scope.$on('XtForm.ErrorsUpdated', redrawErrors);
         }
     };
-});
+}]);

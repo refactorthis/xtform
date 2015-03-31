@@ -1,5 +1,5 @@
 xtForm
-    .directive('xtForm', function ($timeout) {
+    .directive('xtForm', ['$timeout', function ($timeout) {
         'use strict';
 
         return {
@@ -21,8 +21,8 @@ xtForm
                     });
             }
         };
-    })
-    .controller('XtFormController', function ($scope, $element, $attrs, xtFormConfig, $window) {
+    }])
+    .controller('XtFormController', ['$scope', '$element', '$attrs', 'xtFormConfig', '$window', function ($scope, $element, $attrs, xtFormConfig, $window) {
         'use strict';
 
         var vm = this,
@@ -81,4 +81,4 @@ xtForm
             }
 
         });
-    });
+    }]);

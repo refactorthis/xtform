@@ -1,4 +1,4 @@
-xtForm.directive('xtValidationInline', function ($templateCache) {
+xtForm.directive('xtValidationInline', ['$templateCache', function ($templateCache) {
     'use strict';
 
     var _uniqueIdCounter = 0;
@@ -82,4 +82,4 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
             activate();
         }
     };
-});
+}]);
