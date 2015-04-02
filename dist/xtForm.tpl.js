@@ -7,7 +7,7 @@
 
 /*jshint unused:false*/
 var xtForm = angular.module('xtForm', []);
-xtForm.directive('ngModel', function (xtFormConfig, $rootScope, $interpolate, $document) {
+xtForm.directive('ngModel', ["xtFormConfig", "$rootScope", "$interpolate", "$document", function (xtFormConfig, $rootScope, $interpolate, $document) {
     'use strict';
 
     var UNTOUCHED_CLASS = 'ng-untouched',
@@ -115,9 +115,9 @@ xtForm.directive('ngModel', function (xtFormConfig, $rootScope, $interpolate, $d
             }
         }
     };
-});
+}]);
 xtForm
-    .directive('xtForm', function ($timeout) {
+    .directive('xtForm', ["$timeout", function ($timeout) {
         'use strict';
 
         return {
@@ -139,8 +139,8 @@ xtForm
                     });
             }
         };
-    })
-    .controller('XtFormController', function ($scope, $element, $attrs, xtFormConfig, $window) {
+    }])
+    .controller('XtFormController', ["$scope", "$element", "$attrs", "xtFormConfig", "$window", function ($scope, $element, $attrs, xtFormConfig, $window) {
         'use strict';
 
         var vm = this,
@@ -199,7 +199,7 @@ xtForm
             }
 
         });
-    });
+    }]);
 xtForm.provider('xtFormConfig', function () {
     'use strict';
 
@@ -282,7 +282,7 @@ xtForm.provider('xtFormConfig', function () {
 
     self.setDefaultValidationStrategy('dirtyOrSubmitted');
 });
-xtForm.directive('xtValidationInline', function ($templateCache) {
+xtForm.directive('xtValidationInline', ["$templateCache", function ($templateCache) {
     'use strict';
 
     var _uniqueIdCounter = 0;
@@ -366,51 +366,8 @@ xtForm.directive('xtValidationInline', function ($templateCache) {
             activate();
         }
     };
-});
-xtForm.directive('xtValidationSummary', function ($templateCache) {
-    'use strict';
-
-    return {
-        require: ['^xtForm', '^form'],
-        restrict: 'EA',
-        replace: true,
-        scope: true,
-        template: function (element, attrs) {
-            return $templateCache.get(attrs.templateUrl || 'xtForm/summary/validationSummary.html');
-        },
-        link: function (scope, element, attrs, ctrls) {
-
-            var form = ctrls[1];
-            scope.showLabel = (attrs.showLabel === 'true') || angular.isUndefined(attrs.showLabel);
-
-            function redrawErrors() {
-
-                scope.errors = [];
-                angular.forEach(form, function (ngModel, ngModelKey) {
-                    if (ngModelKey[0] !== '$') {
-
-                        // can show one error for each input, or multiple
-                        var noOfErrors = attrs.multiple ? ngModel.$xtErrors.length : 1,
-                            errors = ngModel.$xtErrors.slice(0, noOfErrors);
-
-                        angular.forEach(errors, function (value) {
-                            scope.errors.push({
-                                key: value.key,
-                                label: ngModel.$label,
-                                message: value.message
-                            });
-                        });
-                    }
-                });
-
-                scope.showErrors = scope.errors.length > 0;
-            }
-
-            scope.$on('XtForm.ErrorsUpdated', redrawErrors);
-        }
-    };
-});
-xtForm.directive('xtValidationTooltip', function ($timeout) {
+}]);
+xtForm.directive('xtValidationTooltip', ["$timeout", function ($timeout) {
     'use strict';
 
     return {
@@ -519,15 +476,51 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
             activate();
         }
     };
-});
-})();
-angular.module('xtForm').run(['$templateCache', function($templateCache) {
-  $templateCache.put('xtForm/inline/validationInline.html',
-    '<div data-ng-show="showErrors">\n' +
-    '    <span class="xt-validation-item" data-ng-repeat="error in errors" data-key="error.key">{{error.message}}</span>\n' +
-    '</div>');
 }]);
+xtForm.directive('xtValidationSummary', ["$templateCache", function ($templateCache) {
+    'use strict';
 
+    return {
+        require: ['^xtForm', '^form'],
+        restrict: 'EA',
+        replace: true,
+        scope: true,
+        template: function (element, attrs) {
+            return $templateCache.get(attrs.templateUrl || 'xtForm/summary/validationSummary.html');
+        },
+        link: function (scope, element, attrs, ctrls) {
+
+            var form = ctrls[1];
+            scope.showLabel = (attrs.showLabel === 'true') || angular.isUndefined(attrs.showLabel);
+
+            function redrawErrors() {
+
+                scope.errors = [];
+                angular.forEach(form, function (ngModel, ngModelKey) {
+                    if (ngModelKey[0] !== '$') {
+
+                        // can show one error for each input, or multiple
+                        var noOfErrors = attrs.multiple ? ngModel.$xtErrors.length : 1,
+                            errors = ngModel.$xtErrors.slice(0, noOfErrors);
+
+                        angular.forEach(errors, function (value) {
+                            scope.errors.push({
+                                key: value.key,
+                                label: ngModel.$label,
+                                message: value.message
+                            });
+                        });
+                    }
+                });
+
+                scope.showErrors = scope.errors.length > 0;
+            }
+
+            scope.$on('XtForm.ErrorsUpdated', redrawErrors);
+        }
+    };
+}]);
+})();
 angular.module('xtForm').run(['$templateCache', function($templateCache) {
   $templateCache.put('xtForm/summary/validationSummary.html',
     '<div class="panel panel-danger" data-ng-show="showErrors">\n' +
@@ -546,5 +539,12 @@ angular.module('xtForm').run(['$templateCache', function($templateCache) {
     '            </li>\n' +
     '        </ul>\n' +
     '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('xtForm').run(['$templateCache', function($templateCache) {
+  $templateCache.put('xtForm/inline/validationInline.html',
+    '<div data-ng-show="showErrors">\n' +
+    '    <span class="xt-validation-item" data-ng-repeat="error in errors" data-key="error.key">{{error.message}}</span>\n' +
     '</div>');
 }]);

@@ -7,7 +7,8 @@ var path = require('path'),
     karma = require('karma').server,
     karmaConfig = require('./karma.conf'),
     config = require('./build.conf.js'),
-    plugins = require('gulp-load-plugins')();
+    plugins = require('gulp-load-plugins')(),
+    ngAnnotate = require('gulp-ng-annotate');
 
 var ciMode = false;
 
@@ -35,6 +36,7 @@ gulp.task('scripts', function () {
         .pipe(plugins.header(config.closureStart))
         .pipe(plugins.footer(config.closureEnd))
         .pipe(plugins.header(config.banner))
+        .pipe(ngAnnotate())
         .pipe(gulp.dest(config.buildFolder))
         .pipe(plugins.filesize())
 
