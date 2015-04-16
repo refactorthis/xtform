@@ -43,7 +43,7 @@ describe('inline validation directive', function () {
             expect(function () {
                 var tmp = '<form xt-form><xt-validation-inline for="el1"></xt-validation-inline></form>';
                 setTemplate(tmp);
-            }).toThrow(new Error('Can not find the input element for the validation directive'));
+            }).toThrow(new Error('Can not find input element for the validation directive'));
         });
 
         it('should add xt-validation-inline class to element', function () {
