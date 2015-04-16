@@ -17,6 +17,7 @@
     "gulp-if": "~1.2.5",
     "gulp-jshint": "~1.8.5",
     "gulp-load-plugins": "~0.7.0",
+    "gulp-ng-annotate": "^0.5.2",
     "gulp-ng-html2js": "^0.1.8",
     "gulp-rename": "~1.2.0",
     "gulp-uglify": "~1.0.1",
