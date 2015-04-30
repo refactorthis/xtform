@@ -1,14 +1,16 @@
-xtForm.directive('xtValidationTooltip', function ($timeout) {
+xtForm.directive('xtValidationTooltip', function () {
     'use strict';
 
     return {
-        require: '^xtForm',
+        require: ['^xtForm', '^ngModel'],
         restrict: 'EA',
-        link: function (scope, element, attrs, xtForm) {
+        link: function (scope, element, attrs, ctrls) {
 
-            var ngModelElement,
-                ngModel,
-                lastErrors;
+            var xtForm = ctrls[0];
+            var ngModel = ctrls[1];
+
+            var ngModelElement;
+            var lastErrors;
 
             /**
              * Activates the directive
@@ -58,16 +60,6 @@ xtForm.directive('xtValidationTooltip', function ($timeout) {
                 if (!!ngModelElement.attr('required')) {
                     ngModelElement.attr('aria-required', true);
                 }
-
-                // TODO This is a HACK to ensure the ngModel controller is created on the element before usage.
-                // FIXME this should be removed and replaced with an alternative method perhaps on the ngModel directive
-                // to register with xtform controller
-                $timeout(function () {
-                    ngModel = ngModelElement.controller('ngModel');
-                    if (!ngModel) {
-                        throw new Error('Cannot find ngModel element for xtValidationTooltip');
-                    }
-                });
             }
 
             function redrawErrors() {
