@@ -1,0 +1,25 @@
+{
+  "name": "xtform",
+  "version": "1.0.1",
+  "description": "\u0016AngularJS tooltip form validation",
+  "main": "xtForm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cristianmartinez/xtform.git"
+  },
+  "keywords": [
+    "angularjs",
+    "form",
+    "validation",
+    "html5"
+  ],
+  "author": "\u0016refactorthis <www.brentmckendrick.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cristianmartinez/xtform/issues"
+  },
+  "homepage": "https://github.com/cristianmartinez/xtform#readme"
+}
